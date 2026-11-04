@@ -1,17 +1,12 @@
 ---
 title: Markdown 写作速查表
-pubDatetime: 2026-11-04T12:00:00+08:00
-featured: false
-draft: false
-tags:
-  - Markdown
-  - 指南
-description: 常用 Markdown 语法与本博客支持的扩展写法（代码高亮、提示块、表格等）一览。
+published: 2026-11-04T12:00:00+08:00
+description: 常用 Markdown 语法与本博客支持的扩展写法（代码高亮、提示块、数学公式、图表等）一览。
+tags: [Markdown, 指南]
+category: 写作
 ---
 
 本文列出写博客时最常用的 Markdown 语法，同时也是本站排版效果的展示页。
-
-## 目录
 
 ## 文本样式
 
@@ -34,9 +29,9 @@ description: 常用 Markdown 语法与本博客支持的扩展写法（代码高
 
 ## 代码高亮
 
-```ts title="greet.ts"
+```ts title="greet.ts" {2}
 function greet(name: string): string {
-  return `你好，${name}！`; // [!code highlight]
+  return `你好，${name}！`;
 }
 
 console.log(greet("世界"));
@@ -74,6 +69,21 @@ def fib(n: int) -> int:
 | `Ctrl+S` | 保存文件 |
 | `Ctrl+/` | 切换注释 |
 
-## 折叠目录
+## 数学公式
 
-文章中只要写一个名为 `目录` 或 `Table of contents` 的二级标题，就会自动生成目录。
+行内公式：$E = mc^2$
+
+块级公式：
+
+$$
+\int_0^1 x^2 \, dx = \frac{1}{3}
+$$
+
+## Mermaid 图表
+
+```mermaid
+graph LR
+  A[写 Markdown] --> B[git push]
+  B --> C[GitHub Actions 构建]
+  C --> D[GitHub Pages 上线]
+```
