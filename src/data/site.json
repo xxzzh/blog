@@ -21,5 +21,15 @@
     "subtitle": "记录技术、思考与生活",
     "description": "Kery 的个人博客，记录编程、技术学习与日常生活中的思考与收获。",
     "navbarTitle": "Kery"
+  },
+  "theme": {
+    "hue": 165,
+    "defaultMode": "system"
+  },
+  "wallpaper": {
+    "desktop": "assets/images/DesktopWallpaper/kery-dusk-desktop.avif",
+    "mobile": "assets/images/MobileWallpaper/kery-dusk-mobile.avif",
+    "position": "center 35%",
+    "dimOpacity": 0.2
   }
 }

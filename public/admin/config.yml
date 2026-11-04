@@ -23,6 +23,16 @@ slug:
 output:
   omit_empty_optional_fields: true
 
+# 上传图片时自动转成 WebP 并限制最大 2560px，避免大图拖慢网站
+media_libraries:
+  all:
+    transformations:
+      raster_image:
+        format: webp
+        quality: 85
+        width: 2560
+        height: 2560
+
 collections:
   - name: posts
     label: 文章
@@ -67,7 +77,7 @@ collections:
     label: 个人信息与站点设置
     files:
       - name: site
-        label: 个人信息 / 首页文字 / 公告
+        label: 个人信息 / 外观 / 首页文字 / 公告
         file: src/data/site.json
         format: json
         fields:
@@ -84,6 +94,57 @@ collections:
                 media_folder: /public/assets/uploads
                 public_folder: /assets/uploads
               - { name: github, label: GitHub 主页, widget: string }
+          - name: theme
+            label: 外观主题
+            widget: object
+            fields:
+              - name: hue
+                label: 主题色（色相 0-360）
+                widget: number
+                value_type: int
+                min: 0
+                max: 360
+                step: 5
+                hint: 0 红 · 30 橙 · 60 黄 · 120 绿 · 165 青绿（当前）· 200 青蓝 · 250 蓝 · 290 紫 · 345 粉
+              - name: defaultMode
+                label: 默认明暗模式
+                widget: select
+                options:
+                  - { label: 跟随系统, value: system }
+                  - { label: 浅色, value: light }
+                  - { label: 深色, value: dark }
+          - name: wallpaper
+            label: 首页背景图
+            widget: object
+            fields:
+              - name: desktop
+                label: 电脑端背景图
+                widget: image
+                hint: 建议横图，至少 1920×1080。上传后自动压缩为 WebP
+                media_folder: /public/assets/uploads
+                public_folder: /assets/uploads
+              - name: mobile
+                label: 手机端背景图
+                widget: image
+                hint: 建议竖图，至少 1080×1920
+                media_folder: /public/assets/uploads
+                public_folder: /assets/uploads
+              - name: position
+                label: 图片显示位置
+                widget: select
+                options:
+                  - { label: 偏上（默认）, value: center 35% }
+                  - { label: 顶部, value: top }
+                  - { label: 居中, value: center }
+                  - { label: 底部, value: bottom }
+              - name: dimOpacity
+                label: 图片遮罩暗度
+                widget: number
+                value_type: float
+                min: 0
+                max: 0.8
+                step: 0.05
+                hint: 0 为不变暗，数值越大图片越暗、标题文字越清晰（当前 0.2）
           - name: banner
             label: 首页横幅
             widget: object
