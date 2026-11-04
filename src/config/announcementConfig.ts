@@ -1,11 +1,13 @@
 import type { AnnouncementConfig } from "../types/announcementConfig";
+// 可在网页后台 /blog/admin/ 编辑的内容，见 src/data/site.json
+import siteData from "../data/site.json";
 
 export const announcementConfig: AnnouncementConfig = {
 	// 公告标题，留空则走i18n默认标题
 	title: "",
 
 	// 公告内容
-	content: "欢迎来到我的博客！这里记录我在编程、技术学习和日常生活中的思考与收获。",
+	content: siteData.announcement.content,
 
 	// 是否允许用户关闭公告
 	closable: true,

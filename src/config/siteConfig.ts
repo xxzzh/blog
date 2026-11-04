@@ -1,4 +1,6 @@
 import type { SiteConfig } from "@/types/siteConfig";
+// 可在网页后台 /blog/admin/ 编辑的内容，见 src/data/site.json
+import siteData from "../data/site.json";
 import { resolvePageToggles } from "../utils/page-toggle-utils";
 import { resolveSiteLang } from "../utils/site-config-utils";
 
@@ -42,16 +44,16 @@ const pages = resolvePageToggles({
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Xiong Zheng 的博客",
+	title: siteData.site.title,
 
 	// 站点副标题
-	subtitle: "记录技术、思考与生活",
+	subtitle: siteData.site.subtitle,
 
 	// 站点 URL
 	site_url: "https://xxzzh.github.io",
 
 	// 站点描述
-	description: "Xiong Zheng 的个人博客，记录编程、技术学习与日常生活中的思考与收获。",
+	description: siteData.site.description,
 
 	// 站点关键词
 	keywords: ["博客", "技术博客", "编程", "学习笔记", "Xiong Zheng"],
@@ -106,7 +108,7 @@ export const siteConfig: SiteConfig = {
 			value: "material-symbols:home-pin-outline",
 		},
 		// 导航栏标题
-		title: "Xiong Zheng",
+		title: siteData.site.navbarTitle,
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: false,
 		// 导航菜单对齐方式，left：左对齐，center：居中

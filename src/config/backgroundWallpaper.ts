@@ -1,4 +1,6 @@
 import type { BackgroundWallpaperConfig } from "@/types/backgroundWallpaper";
+// 可在网页后台 /blog/admin/ 编辑的内容，见 src/data/site.json
+import siteData from "../data/site.json";
 
 export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 壁纸模式："banner" 横幅壁纸，"fullscreen" 全屏壁纸，"overlay" 覆盖透明，"none" 纯色背景无壁纸
@@ -73,15 +75,11 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			// 是否启用主页横幅文字
 			enable: true,
 			// 主页横幅主标题
-			title: "Xiong Zheng 的博客",
+			title: siteData.banner.title,
 			// 主页横幅主标题字体大小
 			titleSize: "3.8rem",
 			// 主页横幅副标题
-			subtitle: [
-				"记录技术、思考与生活",
-				"纸上得来终觉浅，绝知此事要躬行",
-				"保持好奇，持续学习",
-			],
+			subtitle: siteData.banner.subtitles,
 			// 主页横幅副标题字体大小
 			subtitleSize: "1.5rem",
 			typewriter: {
@@ -104,7 +102,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 				{
 					name: "GitHub",
 					icon: "fa7-brands:github",
-					url: "https://github.com/xxzzh",
+					url: siteData.profile.github,
 					showName: true,
 				},
 				{

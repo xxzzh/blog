@@ -1,0 +1,114 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+# 博客网页后台（Sveltia CMS）配置，访问 https://xxzzh.github.io/blog/admin/
+# 文档：https://sveltiacms.app/en/docs
+
+backend:
+  name: github
+  repo: xxzzh/blog
+  branch: master
+  # 只允许“使用访问令牌登录”（GitHub OAuth 需要额外部署授权服务）
+  auth_methods: [token]
+
+site_url: https://xxzzh.github.io/blog/
+display_url: https://xxzzh.github.io/blog/
+
+# 全局上传目录（头像等）。站点 base 为 /blog/，主题会自动给 / 开头的路径加上 /blog 前缀
+media_folder: public/assets/uploads
+public_folder: /assets/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+output:
+  omit_empty_optional_fields: true
+
+collections:
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    description: 博客文章，保存在 src/content/posts/
+    folder: src/content/posts
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    # 新建文章时可在右侧“Slug”面板把文件名改成英文，例如 learn-rust-day-1；默认是 日期-随机串
+    slug:
+      template: "{{year}}{{month}}{{day}}-{{uuid_shorter}}"
+      editable: [create]
+      hint: 文章网址，建议用英文小写和短横线，如 my-first-note
+      pattern: ['^[a-z0-9-]+$', '只能使用小写字母、数字和短横线']
+    preview_path: posts/{{filename}}/
+    # 文章图片与文章放在一起：src/content/posts/images/，Astro 构建时会自动压缩
+    media_folder: images
+    public_folder: ./images
+    summary: "{{title}}（{{published | date('YYYY-MM-DD')}}）"
+    sortable_fields:
+      fields: [published, title, category]
+      default:
+        field: published
+        direction: descending
+    view_groups:
+      - { label: 分类, field: category }
+    fields:
+      - { name: title, label: 标题, widget: string }
+      - { name: published, label: 发布时间, widget: datetime, format: 'YYYY-MM-DDTHH:mm:ssZ', default: '{{now}}' }
+      - { name: updated, label: 更新时间, widget: datetime, format: 'YYYY-MM-DDTHH:mm:ssZ', required: false }
+      - { name: description, label: 摘要, widget: text, required: false, hint: 显示在文章列表和搜索结果中 }
+      - { name: image, label: 封面图, widget: image, required: false }
+      - { name: category, label: 分类, widget: string, required: false, hint: 例如：建站笔记、学习笔记、生活 }
+      - { name: tags, label: 标签, widget: list, required: false }
+      - { name: pinned, label: 置顶, widget: boolean, required: false, default: false }
+      - { name: draft, label: 草稿（不发布）, widget: boolean, required: false, default: false }
+      - { name: body, label: 正文, widget: markdown }
+
+  - name: settings
+    label: 个人信息与站点设置
+    files:
+      - name: site
+        label: 个人信息 / 首页文字 / 公告
+        file: src/data/site.json
+        format: json
+        fields:
+          - name: profile
+            label: 个人资料（左侧栏）
+            widget: object
+            fields:
+              - { name: name, label: 名字, widget: string }
+              - { name: bio, label: 个人签名, widget: string }
+              - name: avatar
+                label: 头像
+                widget: image
+                hint: 可上传图片，或填写图片网址（例如 https://github.com/xxzzh.png）
+                media_folder: /public/assets/uploads
+                public_folder: /assets/uploads
+              - { name: github, label: GitHub 主页, widget: string }
+          - name: banner
+            label: 首页横幅
+            widget: object
+            fields:
+              - { name: title, label: 大标题, widget: string }
+              - { name: subtitles, label: 打字机副标题（轮播）, widget: list, field: { name: text, label: 副标题, widget: string } }
+          - name: announcement
+            label: 公告
+            widget: object
+            fields:
+              - { name: content, label: 公告内容, widget: text }
+          - name: site
+            label: 站点信息
+            widget: object
+            fields:
+              - { name: title, label: 网站标题（浏览器标签页）, widget: string }
+              - { name: subtitle, label: 网站副标题, widget: string }
+              - { name: description, label: 网站描述（SEO）, widget: text }
+              - { name: navbarTitle, label: 导航栏左上角文字, widget: string }
+      - name: about
+        label: 关于我 页面
+        file: src/content/spec/about.md
+        format: frontmatter
+        # 图片保存到 src/content/spec/images/，用相对路径引用，Astro 会自动处理
+        media_folder: images
+        public_folder: ./images
+        fields:
+          - { name: body, label: 正文, widget: markdown }

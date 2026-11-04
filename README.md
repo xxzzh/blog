@@ -15,6 +15,22 @@
 | `pnpm preview`         | 预览构建后的站点                            |
 | `pnpm new-post <名字>` | 新建一篇文章                                |
 
+## 网页后台（在线编辑）
+
+地址：<https://xxzzh.github.io/blog/admin/>（基于开源的 [Sveltia CMS](https://sveltiacms.app)）
+
+可以在网页上：写/改/删文章、上传图片，修改个人资料（名字、签名、头像）、首页横幅文字、公告、站点标题和「关于我」页面。
+保存后会自动提交到本仓库并触发部署，约 3 分钟后线上生效。
+
+**首次登录：**
+
+1. 打开后台，点 **使用访问令牌登录**，对话框里有一个生成令牌的链接（GitHub 页面，已预选好权限）；
+2. 在 GitHub 上生成令牌（Fine-grained token：仓库选 `xxzzh/blog`，权限 **Contents: Read and write**），复制；
+3. 粘贴到对话框即可。令牌只保存在当前浏览器里，换电脑需重新登录。令牌请勿分享给他人。
+
+> 个人信息、横幅文字、公告等保存在 `src/data/site.json`，主题配置文件会读取它；后台配置在 `public/admin/config.yml`。
+> 后台里新建文章时，可在右侧「Slug」面板把网址改成英文（如 `my-first-note`），默认是「日期-随机串」。
+
 ## 写文章
 
 在 `src/content/posts/` 下新建 `xxx.md`，开头填写：
